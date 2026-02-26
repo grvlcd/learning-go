@@ -1,28 +1,55 @@
 package main
 
 import (
+	"errors"
 	"fmt"
+	"os"
 )
 
 func main() {
-	var revenue, expenses, taxRate float64
+	revenue, err := printAndScan("Enter revenue: ")
 
-	printAndScan("Enter revenue: ", &revenue)
+	if err != nil {
+		panic("Revenue cannot be less than zero")
+	}
 
-	printAndScan("Enter expenses: ", &expenses)
+	expenses, err := printAndScan("Enter expenses: ")
 
-	printAndScan("Enter taxRate: ", &taxRate)
+	if err != nil {
+		panic("Expenses cannot be less than zero")
+	}
+
+	taxRate, err := printAndScan("Enter taxRate: ")
+
+	if err != nil {
+		panic("Tax rate cannot be less than zero")
+	}
 
 	earningsBeforeTax, earningsAfterTax, ratio := calculateEarningsAndRatio(revenue, expenses, taxRate)
+	writeFromFile(earningsBeforeTax, earningsAfterTax, ratio)
 
 	fmt.Printf("Earnings Before Tax: %.2f\n", earningsBeforeTax)
 	fmt.Printf("Earnings After Tax: %.2f\n", earningsAfterTax)
 	fmt.Printf("Ratio: %.2f\n", ratio)
 }
 
-func printAndScan(label string, value *float64) {
+func writeFromFile(ebt, eat, ratio float64) {
+	textFormat := fmt.Sprintf("%.2f, %.2f, %.2f\n", ebt, eat, ratio)
+	os.WriteFile("example.txt", []byte(textFormat), 0644)
+}
+
+func printAndScan(label string) (float64, error) {
 	fmt.Print(label)
-	fmt.Scan(value)
+
+	value := 0.0
+
+	fmt.Scan(&value)
+
+	if value <= 0 {
+		return 0, errors.New("Value cannot be less than zero")
+	}
+
+	return value, nil
 }
 
 func calculateEarningsAndRatio(revenue, expenses, taxRate float64) (float64, float64, float64) {
