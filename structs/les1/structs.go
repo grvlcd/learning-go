@@ -12,7 +12,7 @@ func main() {
 
 	var userDetails *user.UserDetails
 
-	userDetails, err := user.NewUserDetails(
+	userDetails, err := user.New(
 		firstName,
 		lastName,
 		birthdate,
