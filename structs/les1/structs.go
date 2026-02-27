@@ -10,9 +10,9 @@ func main() {
 	lastName := getUserData("Please enter last name: ")
 	birthdate := getUserData("Please enter birth date (MM/DD/YYYY): ")
 
-	var userDetails *user.UserDetails
+	var appUser *user.User
 
-	userDetails, err := user.New(
+	appUser, err := user.New(
 		firstName,
 		lastName,
 		birthdate,
@@ -23,14 +23,20 @@ func main() {
 		return
 	}
 
+	adminUser := user.NewAdmin("super@admin.com", "password")
+
+	adminUser.OutputUserDetails()
+	adminUser.ClearUserName()
+	adminUser.OutputUserDetails()
+
 	// userDetails.firstName = firstName
 	// userDetails.lastName = lastName
 	// userDetails.birthdate = birthdate
 	// userDetails.createdAt = time.Now()
 
-	userDetails.OutputUserDetails()
-	userDetails.ClearUserName()
-	userDetails.OutputUserDetails()
+	appUser.OutputUserDetails()
+	appUser.ClearUserName()
+	appUser.OutputUserDetails()
 }
 
 func getUserData(label string) string {
