@@ -1,49 +1,18 @@
 package main
 
 import (
-	"errors"
+	"example.com/les1/user"
 	"fmt"
-	"time"
 )
-
-type UserDetails struct {
-	firstName string
-	lastName  string
-	birthdate string
-	createdAt time.Time
-}
-
-// Receiver argument
-func (userDetails UserDetails) outputUserDetails() {
-	fmt.Printf("%v %v, %v - %v\n", userDetails.firstName, userDetails.lastName, userDetails.birthdate, userDetails.createdAt)
-}
-
-func (userDetails *UserDetails) clearUserName() {
-	userDetails.firstName = ""
-	userDetails.lastName = ""
-}
-
-func newUserDetails(firstName, lastName, birthdate string) (*UserDetails, error) {
-	if firstName == "" || lastName == "" || birthdate == "" {
-		return nil, errors.New("First name, last name or birthdate is required!")
-	}
-
-	return &UserDetails{
-		firstName: firstName,
-		lastName:  lastName,
-		birthdate: birthdate,
-		createdAt: time.Now(),
-	}, nil
-}
 
 func main() {
 	firstName := getUserData("Please enter first name: ")
 	lastName := getUserData("Please enter last name: ")
 	birthdate := getUserData("Please enter birth date (MM/DD/YYYY): ")
 
-	var userDetails *UserDetails
+	var userDetails *user.UserDetails
 
-	userDetails, err := newUserDetails(
+	userDetails, err := user.NewUserDetails(
 		firstName,
 		lastName,
 		birthdate,
@@ -59,9 +28,9 @@ func main() {
 	// userDetails.birthdate = birthdate
 	// userDetails.createdAt = time.Now()
 
-	userDetails.outputUserDetails()
-	userDetails.clearUserName()
-	userDetails.outputUserDetails()
+	userDetails.OutputUserDetails()
+	userDetails.ClearUserName()
+	userDetails.OutputUserDetails()
 }
 
 func getUserData(label string) string {
