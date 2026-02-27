@@ -3,6 +3,7 @@ package main
 import (
 	"example.com/bank/fileops"
 	"fmt"
+	"github.com/Pallinder/go-randomdata"
 )
 
 const fileName = "./balance.txt"
@@ -14,7 +15,7 @@ func main() {
 		fmt.Println("Error: ", err)
 	}
 
-	fmt.Println("Welcome to Go Bank!")
+	fmt.Printf("Welcome to Go Bank! %v \n", randomdata.SillyName())
 	for {
 		var choice int
 		presentOptions()
