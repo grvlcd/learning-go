@@ -1,52 +1,50 @@
 package main
 
 import (
-	"errors"
+	"bufio"
 	"fmt"
+	"os"
 	"strings"
+
+	"example.com/ternotion/note"
 )
 
 const filePath = "learn_go.json"
 
 func main() {
-	title, content, err := getUserData()
+	title, content := getUserData()
+
+	newNote, err := note.New(title, content)
 
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
+
+	newNote.Display()
 }
 
-func getUserData() (string, string, error) {
-	title, err := getUserInput("Title: ")
+func getUserData() (string, string) {
+	title := getUserInput("Title: ")
 
-	if err != nil {
-		return "", "", err
-	}
+	content := getUserInput("Content: ")
 
-	content, err := getUserInput("Content: ")
-
-	if err != nil {
-		return "", "", err
-	}
-
-	return title, content, nil
+	return title, content
 }
 
-func getUserInput(promt string) (string, error) {
+func getUserInput(promt string) string {
 	fmt.Print(promt)
 
-	var value string
-	fmt.Scan(&value)
+	reader := bufio.NewReader(os.Stdin)
 
-	if value == "" {
-		var builder strings.Builder
-		builder.Write([]byte(promt))
-		builder.Write([]byte(" "))
-		builder.Write([]byte("is required"))
-		result := builder.String()
-		return "", errors.New(result)
+	text, err := reader.ReadString('\n')
+
+	if err != nil {
+		return ""
 	}
 
-	return value, nil
+	text = strings.TrimSuffix(text, "\n")
+	text = strings.TrimSuffix(text, "\r")
+
+	return text
 }

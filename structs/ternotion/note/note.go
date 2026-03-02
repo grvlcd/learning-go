@@ -1,6 +1,10 @@
-package main
+package note
 
-import "time"
+import (
+	"errors"
+	"fmt"
+	"time"
+)
 
 type Note struct {
 	title     string
@@ -8,4 +12,18 @@ type Note struct {
 	createdAt time.Time
 }
 
-func (note Note) Save()
+func (note Note) Display() {
+	fmt.Printf("Your note titled %v has the following content: \n\n%v\n\n", note.title, note.content)
+}
+
+func New(title, content string) (Note, error) {
+	if title == "" || content == "" {
+		return Note{}, errors.New("Invalid Input.")
+	}
+
+	return Note{
+		title,
+		content,
+		time.Now(),
+	}, nil
+}
