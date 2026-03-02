@@ -1,8 +1,7 @@
-package main
+package fileops
 
 import (
 	"errors"
-	"fmt"
 	"os"
 )
 
@@ -18,7 +17,6 @@ func ReadToFile(path string) (string, error) {
 	return contentValue, nil
 }
 
-func WriteToFile(content string, fileName string) {
-	contentText := fmt.Sprint(content)
-	os.WriteFile(fileName, []byte(contentText), 0644)
+func WriteToFile(content []byte, fileName string) {
+	os.WriteFile(fileName, content, 0644)
 }

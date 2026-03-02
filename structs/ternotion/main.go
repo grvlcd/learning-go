@@ -9,8 +9,6 @@ import (
 	"example.com/ternotion/note"
 )
 
-const filePath = "learn_go.json"
-
 func main() {
 	title, content := getUserData()
 
@@ -22,6 +20,15 @@ func main() {
 	}
 
 	newNote.Display()
+
+	err = newNote.Save()
+
+	if err != nil {
+		fmt.Println("Saving the note failed!")
+		return
+	}
+
+	fmt.Println("Saving the note success!")
 }
 
 func getUserData() (string, string) {
