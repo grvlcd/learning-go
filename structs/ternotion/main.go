@@ -10,6 +10,10 @@ import (
 	"example.com/ternotion/todo"
 )
 
+type saver interface {
+	Save() error
+}
+
 func main() {
 	title, content := getUserData()
 
@@ -22,17 +26,6 @@ func main() {
 		return
 	}
 
-	err = newTodo.Save()
-
-	if err != nil {
-		fmt.Println("Saving the todo failed!")
-		return
-	}
-
-	newTodo.Display()
-
-	fmt.Println("Saving the todo success!")
-
 	newNote, err := note.New(title, content)
 
 	if err != nil {
@@ -40,16 +33,33 @@ func main() {
 		return
 	}
 
-	newNote.Display()
-
-	err = newNote.Save()
+	err = saveData(newTodo)
 
 	if err != nil {
-		fmt.Println("Saving the note failed!")
 		return
 	}
 
+	newTodo.Display()
+
+	err = saveData(newNote)
+
+	if err != nil {
+		return
+	}
+
+	newNote.Display()
+}
+
+func saveData(data saver) error {
+	err := data.Save()
+
+	if err != nil {
+		fmt.Println("Saving the note failed!")
+		return err
+	}
+
 	fmt.Println("Saving the note success!")
+	return nil
 }
 
 func getTodoData() string {
