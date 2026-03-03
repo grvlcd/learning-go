@@ -20,6 +20,9 @@ type outputtable interface {
 }
 
 func main() {
+	printSomething(1)
+	printSomething(1.5)
+	printSomething("Hello")
 	title, content := getUserData()
 
 	todoContent := getTodoData()
@@ -52,7 +55,14 @@ func main() {
 }
 
 func printSomething(data any) {
-	fmt.Println(data)
+	switch data.(type) {
+	case int:
+		fmt.Println("Integer: ", data)
+	case float64:
+		fmt.Println("Float64: ", data)
+	case string:
+		fmt.Println("String: ", data)
+	}
 }
 
 func outputData(data outputtable) error {
