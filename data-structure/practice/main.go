@@ -2,26 +2,42 @@ package main
 
 import "fmt"
 
-func main() {
-	hobbies := []string{"Learning", "Board Games", "Cooking"}
-	fmt.Println("ALL: ", hobbies)
-
-	fmt.Println("First: ", hobbies[0])
-
-	fmt.Println("To Least: ", hobbies[1:])
-
-	firstAndSecondHobbies := hobbies[:2]
-	fmt.Println("First and Second: ", firstAndSecondHobbies)
-	firstAndSecondHobbies = firstAndSecondHobbies[1:3]
-	fmt.Println("Second and Last: ", firstAndSecondHobbies)
-
-	courseGoals := []string{"Learn Go", "Write Backend"}
-	fmt.Println("Course Goals: ", courseGoals)
-	courseGoals[1] = "Write API"
-	fmt.Println("New Second Index Goal: ", courseGoals)
-	courseGoals = append(courseGoals, "Deploy to GCP")
-	fmt.Println("Added Third Goal: ", courseGoals)
+type Product struct {
+	id    int
+	title string
+	price float64
 }
+
+func main() {
+	products := []Product{{1, "A Carpet", 29.99}, {2, "A Ribbon", 1.50}}
+
+	fmt.Println(products)
+
+	products = append(products, Product{3, "A Phone", 1000.50})
+
+	fmt.Println(products)
+}
+
+// func main() {
+// 	hobbies := []string{"Learning", "Board Games", "Cooking"}
+// 	fmt.Println("ALL: ", hobbies)
+//
+// 	fmt.Println("First: ", hobbies[0])
+//
+// 	fmt.Println("To Least: ", hobbies[1:])
+//
+// 	firstAndSecondHobbies := hobbies[:2]
+// 	fmt.Println("First and Second: ", firstAndSecondHobbies)
+// 	firstAndSecondHobbies = firstAndSecondHobbies[1:3]
+// 	fmt.Println("Second and Last: ", firstAndSecondHobbies)
+//
+// 	courseGoals := []string{"Learn Go", "Write Backend"}
+// 	fmt.Println("Course Goals: ", courseGoals)
+// 	courseGoals[1] = "Write API"
+// 	fmt.Println("New Second Index Goal: ", courseGoals)
+// 	courseGoals = append(courseGoals, "Deploy to GCP")
+// 	fmt.Println("Added Third Goal: ", courseGoals)
+// }
 
 // Time to practice what you learned!
 
@@ -37,6 +53,6 @@ func main() {
 //		and last element of the original array.
 // DONE: 5) Create a "dynamic array" that contains your course goals (at least 2 goals)
 // DONE: 6) Set the second goal to a different one AND then add a third goal to that existing dynamic array
-// TODO: 7) Bonus: Create a "Product" struct with title, id, price and create a
+// DONE: 7) Bonus: Create a "Product" struct with title, id, price and create a
 //		dynamic list of products (at least 2 products).
 //		Then add a third product to the existing list of products.
