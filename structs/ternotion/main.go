@@ -7,10 +7,31 @@ import (
 	"strings"
 
 	"example.com/ternotion/note"
+	"example.com/ternotion/todo"
 )
 
 func main() {
 	title, content := getUserData()
+
+	todoContent := getTodoData()
+
+	newTodo, err := todo.New(todoContent)
+
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	err = newTodo.Save()
+
+	if err != nil {
+		fmt.Println("Saving the todo failed!")
+		return
+	}
+
+	newTodo.Display()
+
+	fmt.Println("Saving the todo success!")
 
 	newNote, err := note.New(title, content)
 
@@ -29,6 +50,11 @@ func main() {
 	}
 
 	fmt.Println("Saving the note success!")
+}
+
+func getTodoData() string {
+	content := getUserInput("Todo: ")
+	return content
 }
 
 func getUserData() (string, string) {
