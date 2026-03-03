@@ -9,9 +9,11 @@ func main() {
 
 	productNames[2] = "A Carpet"
 
-	featuredPrices := prices[1:3]
+	featuredPrices := prices[1:]
+	highlightedPrices := featuredPrices[:1]
 
 	fmt.Println(prices[2])
 	fmt.Println(productNames)
 	fmt.Println(featuredPrices)
+	fmt.Println(highlightedPrices)
 }
