@@ -16,4 +16,5 @@ func main() {
 	fmt.Println(productNames)
 	fmt.Println(featuredPrices)
 	fmt.Println(highlightedPrices)
+	fmt.Println(len(highlightedPrices), cap(highlightedPrices))
 }
